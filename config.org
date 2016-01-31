@@ -1058,7 +1058,15 @@ creating a buffer to do some scratch work or reusing the initial
   :ensure t)
 #+end_src
 
+*** feature-mode
+
+#+begin_src emacs-lisp
+(use-package feature-mode
+  :ensure t)
+#+end_src
+
 *** goto-gem
+
 #+begin_src emacs-lisp
 (use-package goto-gem
   :ensure t)
