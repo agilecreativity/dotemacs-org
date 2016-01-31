@@ -1065,9 +1065,9 @@ See the [[https://github.com/tobiassvn/bundler.el][official document]] for usage
 
 According to [[https://github.com/michaelklishin/cucumber.el][official document],
 to get =goto-step-definition= to work, we must install
-=ruby_parser= gem (version 2.0.x).For example:
+=ruby_parser= gem (version 2.0.x).For example: =gem install ruby_parser=
 
-=gem install ruby_parser --version "~> 2.0.5"=
+Tips: better to use this with the =rbenv= package below e.g. =rbenv-use= command=
 
 #+begin_src emacs-lisp
 (use-package feature-mode
@@ -1156,6 +1156,15 @@ BDD/TDD testing in ruby
 
 #+begin_src emacs-lisp
 (use-package yaml-mode
+  :ensure t)
+#+end_src
+
+*** coffee-mode
+
+The [[git@github.com:defunkt/coffee-mode.git][coffee-mode]] for CoffeeScript support
+
+#+begin_src emacs-lisp
+(use-package coffee-mode
   :ensure t)
 #+end_src
 
