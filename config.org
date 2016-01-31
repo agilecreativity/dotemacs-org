@@ -593,9 +593,9 @@ what I have them set to (with respect to Dvorak, of course).
   :ensure t)
 #+end_src
 
-** Ag [[https://github.com/ggreer/the_silver_searcher][Ag - The Silver Searcher]]
+** Ag The Silver Searcher
 
-To install this with the following command on OSX
+[[https://github.com/ggreer/the_silver_searcher][Ag]] can be installed with following command on OSX
 
 #+begin_src sh
 brew install ag
@@ -1047,6 +1047,90 @@ creating a buffer to do some scratch work or reusing the initial
 
 #+begin_src emacs-lisp
 (use-package scratch
+  :ensure t)
+#+end_src
+
+** Ruby Development
+
+*** Bundler
+#+begin_src emacs-lisp
+(use-package bundler
+  :ensure t)
+#+end_src
+
+*** goto-gem
+#+begin_src emacs-lisp
+(use-package goto-gem
+  :ensure t)
+#+end_src
+
+*** inf-ruby
+
+#+begin_src emacs-lisp
+(use-package goto-gem
+  :ensure t)
+#+end_src
+
+*** rbenv
+
+#+begin_src emacs-lisp
+(use-package rbenv
+  :ensure t)
+#+end_src
+
+*** rspec-mode
+
+#+begin_src emacs-lisp
+(use-package rspec-mode
+  :ensure t)
+#+end_src
+
+*** ruby-additional
+
+#+begin_src emacs-lisp
+(use-package ruby-additional
+  :ensure t)
+#+end_src
+
+*** ruby-block
+
+#+begin_src emacs-lisp
+(use-package ruby-block
+  :ensure t)
+#+end_src
+
+*** ruby-hash-syntax
+
+#+begin_src emacs-lisp
+(use-package ruby-hash-syntax
+  :ensure t)
+#+end_src
+
+*** ruby-refactor
+
+#+begin_src emacs-lisp
+(use-package ruby-refactor
+  :ensure t)
+#+end_src
+
+*** ruby-tools
+
+#+begin_src emacs-lisp
+(use-package ruby-tools
+  :ensure t)
+#+end_src
+
+*** yari
+
+#+begin_src emacs-lisp
+(use-package yari
+  :ensure t)
+#+end_src
+
+*** yaml-mode
+
+#+begin_src emacs-lisp
+(use-package yaml-mode
   :ensure t)
 #+end_src
 
