@@ -13,6 +13,7 @@
         delete-horizontal-space
         electric-newline-and-maybe-indent
         end-of-visual-line
+        helm-M-x
         helm-confirm-and-exit-minibuffer
         indent-for-tab-command
         kill-visual-line

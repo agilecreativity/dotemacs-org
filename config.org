@@ -1052,13 +1052,22 @@ creating a buffer to do some scratch work or reusing the initial
 
 ** Ruby Development
 
-*** Bundler
+*** bundler
+
+See the [[https://github.com/tobiassvn/bundler.el][official document]] for usage.
+
 #+begin_src emacs-lisp
 (use-package bundler
   :ensure t)
 #+end_src
 
 *** feature-mode
+
+According to [[https://github.com/michaelklishin/cucumber.el][official document],
+to get =goto-step-definition= to work, we must install
+=ruby_parser= gem (version 2.0.x).For example:
+
+=gem install ruby_parser --version "~> 2.0.5"=
 
 #+begin_src emacs-lisp
 (use-package feature-mode
@@ -1067,12 +1076,16 @@ creating a buffer to do some scratch work or reusing the initial
 
 *** goto-gem
 
+Go directory to the source of a ruby gems
+
 #+begin_src emacs-lisp
 (use-package goto-gem
   :ensure t)
 #+end_src
 
 *** inf-ruby
+
+Needed to be installed as required by =feature-mode= package and many others
 
 #+begin_src emacs-lisp
 (use-package goto-gem
@@ -1081,12 +1094,16 @@ creating a buffer to do some scratch work or reusing the initial
 
 *** rbenv
 
+The ruby package manager see [[https://github.com/rbenv/rbenv][official site]]
+
 #+begin_src emacs-lisp
 (use-package rbenv
   :ensure t)
 #+end_src
 
 *** rspec-mode
+
+BDD/TDD testing in ruby
 
 #+begin_src emacs-lisp
 (use-package rspec-mode
@@ -1139,6 +1156,26 @@ creating a buffer to do some scratch work or reusing the initial
 
 #+begin_src emacs-lisp
 (use-package yaml-mode
+  :ensure t)
+#+end_src
+
+*** Git related packages
+
+**** git-timemachine
+
+Step back in time in Git's land, see the official website for usage
+
+#+begin_src emacs-lisp
+(use-package git-timemachine
+  :ensure t)
+#+end_src
+
+**** github-browse-file
+
+Open Github's file from Emacs [[official site][https://github.com/osener/github-browse-file]]
+
+#+begin_src emacs-lisp
+(use-package github-browse-file
   :ensure t)
 #+end_src
 
@@ -1264,4 +1301,4 @@ while still being in org mode.
 #+begin_src emacs-lisp
 (use-package visible-mode
   :bind ("H-v" . visible-mode))
-#+end_src
+th#+end_src
