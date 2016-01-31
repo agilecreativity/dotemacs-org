@@ -149,15 +149,21 @@ Sources for this section include [[https://github.com/magnars/.emacs.d/blob/mast
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Keep all backup and auto-save files in one directory
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name (concat user-emacs-directory "backups")))))
+
+;; Disk space is cheap. so save lots
+(setq delete-old-versions -1
+      version-control t
+      vc-make-backup-files t
+      auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 
 ;; UTF-8 please
-(setq locale-coding-system 'utf-8) ; pretty
-(set-terminal-coding-system 'utf-8) ; pretty
-(set-keyboard-coding-system 'utf-8) ; pretty
-(set-selection-coding-system 'utf-8) ; please
-(prefer-coding-system 'utf-8) ; with sugar on top
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 (setq-default indent-tabs-mode nil)
 
 ;; Turn off the blinking cursor
@@ -190,7 +196,7 @@ Sources for this section include [[https://github.com/magnars/.emacs.d/blob/mast
 #+end_src
 
 The following function for ~occur-dwim~ is taken from [[https://github.com/abo-abo][Oleh Krehel]] from
-[[http://oremacs.com/2015/01/26/occur-dwim/][his blog post at (or emacs]]. It takes the current region or the symbol
+[[http://oremacs.com/2015/01/26/occur-dwim/][his blog post at (or emacs)]]. It takes the current region or the symbol
 at point as the default value for occur.
 
 #+begin_src emacs-lisp
@@ -359,7 +365,7 @@ Learned about [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a
 
 #+begin_src emacs-lisp
 (bind-key "C-c c" 'org-capture)
-(setq org-default-notes-file "~/Dropbox/Notes/notes.org")
+(setq org-default-notes-file "~/Dropbox/org/notes.org")
 #+end_src
 
 ** Org setup
@@ -584,6 +590,19 @@ what I have them set to (with respect to Dvorak, of course).
 
 #+begin_src emacs-lisp
 (use-package android-mode
+  :ensure t)
+#+end_src
+
+** Ag [[https://github.com/ggreer/the_silver_searcher][Ag - The Silver Searcher]]
+
+To install this with the following command on OSX
+
+#+begin_src sh
+brew install ag
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package ag
   :ensure t)
 #+end_src
 
