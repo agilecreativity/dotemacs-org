@@ -1397,7 +1397,20 @@ People often struggle with the Emacs undo model, where there's really no concept
 This lets you use =C-x u= (=undo-tree-visualize=) to visually walk through the changes you've made, undo back to a certain point (or redo), and go down different branches.
 
 #+begin_src emacs-lisp
-  (use-package undo-tree
-    :init (global-undo-tree-mode)
-    :ensure t)
+(use-package undo-tree
+  :init (global-undo-tree-mode)
+  :ensure t)
+#+end_src
+
+*** Help - guide-key
+
+It's hard to remember keyboard shortcuts. The =guide-key= package pops up help after a short delay.
+
+#+begin_src emacs-lisp
+(use-package guide-key
+  :ensure t
+  :init
+  (progn
+    (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c"))
+    (guide-key-mode 1)))
 #+end_src
