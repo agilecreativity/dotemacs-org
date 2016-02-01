@@ -11,7 +11,7 @@
  '(helm-mode t)
  '(package-selected-packages
    (quote
-    (find-file-in-project coffee-mode github-browse-file git-browse-file git-timemachine feature-mode yaml-mode yari ruby-tools ruby-refactor ruby-hash-syntax ruby-block ruby-additional rspec-mode rbenv goto-gem bundler scratch zoom-frm emmet-mode yasnippet visual-regexp-steroids visual-regexp smooth-scrolling skewer-mode smex smartscan smartparens geiser racket-mode ag olivetti multiple-cursors markdown-mode macrostep gist flycheck expand-region ein edit-server magit helm-ag helm-projectile helm dash-at-point clojure-mode c-eldoc android-mode ace-window ace-jump-mode ido-vertical-mode transpose-frame ox-pandoc exec-path-from-shell solarized-theme use-package)))
+    (undo-tree find-file-in-project coffee-mode github-browse-file git-browse-file git-timemachine feature-mode yaml-mode yari ruby-tools ruby-refactor ruby-hash-syntax ruby-block ruby-additional rspec-mode rbenv goto-gem bundler scratch zoom-frm emmet-mode yasnippet visual-regexp-steroids visual-regexp smooth-scrolling skewer-mode smex smartscan smartparens geiser racket-mode ag olivetti multiple-cursors markdown-mode macrostep gist flycheck expand-region ein edit-server magit helm-ag helm-projectile helm dash-at-point clojure-mode c-eldoc android-mode ace-window ace-jump-mode ido-vertical-mode transpose-frame ox-pandoc exec-path-from-shell solarized-theme use-package)))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote
