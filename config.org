@@ -1145,6 +1145,13 @@ BDD/TDD testing in ruby
   :ensure t)
 #+end_src
 
+*** projectile-rails
+
+#+begin_src emacs-lisp
+(use-package projectile-rails
+  :ensure t)
+#+end_src
+
 *** yari
 
 #+begin_src emacs-lisp
