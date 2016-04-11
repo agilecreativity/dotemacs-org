@@ -28,6 +28,9 @@
         org-self-insert-command
         org-shiftmetaright
         other-frame
+        paredit-backward
+        paredit-forward-kill-word
+        paredit-semicolon
         sgml-close-tag
         sgml-slash
         transpose-words
