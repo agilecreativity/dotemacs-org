@@ -1432,3 +1432,14 @@ It's hard to remember keyboard shortcuts. The =guide-key= package pops up help a
     (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c"))
     (guide-key-mode 1)))
 #+end_src
+
+** Emacs - Cider relate packages (experiment)
+
+#+begin_src emacs-lisp
+(use-package cider
+  :ensure t)
+
+(use-package ac-cider
+  :ensure t)
+#+end_src
+
