@@ -1433,9 +1433,15 @@ It's hard to remember keyboard shortcuts. The =guide-key= package pops up help a
     (guide-key-mode 1)))
 #+end_src
 
-** Emacs - Cider relate packages (experiment)
+** Emacs - Extra package for developer (experiment)
 
 #+begin_src emacs-lisp
+(use-package zenburn-theme 
+  :ensure t)
+
+(use-package paredit 
+  :ensure t)
+
 (use-package cider
   :ensure t)
 
@@ -1443,3 +1449,15 @@ It's hard to remember keyboard shortcuts. The =guide-key= package pops up help a
   :ensure t)
 #+end_src
 
+Make sure that ac-cider is setup according to the installation
+
+#+begin_src emacs-lisp
+(require 'ac-cider)
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+     (add-to-list 'ac-modes 'cider-repl-mode)))
+#+end_src

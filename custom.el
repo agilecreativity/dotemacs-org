@@ -6,7 +6,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("f0a99f53cbf7b004ba0c1760aa14fd70f2eabafe4e62a2b3cf5cabae8203113b" default)))
+    ("d09467d742f713443c7699a546c0300db1a75fed347e09e3f178ab2f3aa2c617" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "f0a99f53cbf7b004ba0c1760aa14fd70f2eabafe4e62a2b3cf5cabae8203113b" default)))
  '(helm-locate-command "mdfind -interpret -name %s %s")
  '(helm-mode t)
  '(package-selected-packages
