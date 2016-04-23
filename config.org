@@ -129,7 +129,7 @@ And here's how we tell Emacs to use the font we want to use.
 
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist
-             '(font . "Inconsolata-14"))
+             '(font . "Inconsolata-15"))
 #+end_src
 
 * Sane defaults
@@ -620,12 +620,6 @@ This package displays function signatures in the mode line.
   :init (add-hook 'c-mode-hook #'c-turn-on-eldoc-mode))
 #+end_src
 
-** Clojure
-
-#+begin_src emacs-lisp
-(use-package clojure-mode
-  :ensure t)
-#+end_src
 
 ** Dash
 
@@ -897,15 +891,11 @@ string to keep things portable.
   :mode ("\\.restclient\\'" . restclient-mode))
 #+end_src
 
-** Paredit mode
+** Cider
+
 #+begin_src emacs-lisp
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(use-package cider
+  :ensure t)
 #+end_src
 
 ** Smartparens mode
@@ -1012,7 +1002,7 @@ idle time.
   :diminish yas-minor-mode
   :config
   (setq yas-snippet-dirs (concat user-emacs-directory "snippets"))
-  (yas-global-mode))
+  (yas-global-mode 1))
 #+end_src
 
 ** Emmet
@@ -1433,15 +1423,40 @@ It's hard to remember keyboard shortcuts. The =guide-key= package pops up help a
     (guide-key-mode 1)))
 #+end_src
 
-** Emacs - Extra package for developer (experiment)
+** My extra package for developer
+
+*** Clojure
+
+See [[https://github.com/clojure-emacs/clojure-mode/blob/master/README.md][clojure-mode]] documentation
 
 #+begin_src emacs-lisp
-(use-package zenburn-theme 
+(use-package clojure-mode
   :ensure t)
+#+end_src
 
-(use-package paredit 
+*** Paredit
+
+#+begin_src emacs-lisp
+(use-package paredit
   :ensure t)
+#+end_src
 
+Make sure paredit is on by default for some mode
+
+#+begin_src emacs-lisp
+(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+    (add-hook 'emacs-lisp-mode-hook                  #'enable-paredit-mode)
+    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+    (add-hook 'ielm-mode-hook                        #'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook                        #'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook            #'enable-paredit-mode)
+    (add-hook 'scheme-mode-hook                      #'enable-paredit-mode)
+    (add-hook 'clojure-mode-hook                     #'enable-paredit-mode)
+#+end_src
+
+*** Other useful packages
+
+#+begin_src emacs-lisp
 (use-package cider
   :ensure t)
 
@@ -1449,12 +1464,12 @@ It's hard to remember keyboard shortcuts. The =guide-key= package pops up help a
   :ensure t)
 #+end_src
 
-Make sure that ac-cider is setup according to the installation
+Make sure that ac-cider is setup according to the installation guide
 
 #+begin_src emacs-lisp
 (require 'ac-cider)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-mode-hook      'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook      'ac-cider-setup)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
 (eval-after-load "auto-complete"
   '(progn
