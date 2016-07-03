@@ -69,6 +69,14 @@ a multi-step process with ~disable-theme~ and ~load-theme~. The
 ~switch-theme~ function will do that in one swoop. I just choose which
 theme I want to go to.
 
+** Zenburn theme
+
+#+begin_src emacs-lisp
+(use-package zenburn-theme
+  :init
+  :ensure t)
+#+end_src
+
 ** Solarized theme
 
 Here's some configuration for [[https://github.com/bbatsov/solarized-emacs/][bbatsov's solarized themes]].
@@ -110,33 +118,69 @@ Here's some configuration for [[https://github.com/bbatsov/solarized-emacs/][bba
 (bind-key "s-<f11>" 'disable-active-themes)
 #+end_src
 
-* Font
+* Font Settings (Mostly from Howard Abrams)
 
-[[http://levien.com/type/myfonts/inconsolata.html][Inconsolata]] is a nice monospaced font.
+List of links that may be helpful to setup fonts and stuffs
 
-To install it on OS X, you can use Homebrew with [[http://caskroom.io/][Homebrew Cask]].
+ - [[http://mplus-fonts.sourceforge.jp/mplus-outline-fonts/download/index.html][M+]]
+ - [[http://blogs.adobe.com/typblography/2012/09/source-code-pro.html][Source Code Pro]]
+ - [[https://github.com/tonsky/FiraCode][Fira]]
+ - [[https://github.com/i-tu/Hasklig][Hasklig]]
+ - [[https://github.com/adobe-fonts/source-sans-pro/releases/tag/2.010R-ro/1.065R-it][Source Sans Pro]]
+ - [[https://github.com/adobe-fonts/source-code-pro/][Source Code Pro]]
+ - [[http://levien.com/type/myfonts/inconsolata.html][Inconsolata]]
+ - [[http://caskroom.io/][Homebrew Cask]]
+ - [[https://www.emacswiki.org/emacs/SetFonts][Emacs Wiki - Set Fonts]] for more details
 
-#+begin_src sh :tangle no
-# You may need to run these two lines if you haven't set up Homebrew
-# Cask and its fonts formula.
-brew install caskroom/cask/brew-cask
-brew tap caskroom/fonts
-
-brew cask install font-inconsolata
+#+begin_src elisp
+(global-font-lock-mode 1)
 #+end_src
 
-And here's how we tell Emacs to use the font we want to use.
+#+begin_src elisp
+(defvar ha/fixed-font-family
+  (cond ((x-list-fonts "Hasklig")         "Hasklig")
+        ((x-list-fonts "Inconsolata")     "Inconsolata")
+        ((x-list-fonts "FiraMono")        "FiraMono")
+        ((x-list-fonts "Source Code Pro") "Source Code Pro")
+        ((x-list-fonts "Anonymous Pro")   "Anonymous Pro")
+        ((x-list-fonts "M+ 1mn")          "M+ 1mn"))
+  "My fixed width font based on what is installed, `nil' if not defined.")
+#+end_src
+
+#+begin_src elisp
+(when ha/fixed-font-family
+  (set-frame-font ha/fixed-font-family)
+  (set-face-attribute 'default nil :font ha/fixed-font-family :height 150)
+  (set-face-font 'default ha/fixed-font-family))
+#+end_src
+
+#+begin_src  elisp
+(defvar ha/variable-font-tuple
+  (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+        ((x-list-fonts "FiraMono")        '(:font "FiraMono"))
+        ((x-list-fonts "Inconsolata")     '(:font "Inconsolata"))
+        ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+        ((x-list-fonts "Verdana")         '(:font "Verdana"))
+        ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+        (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro.")))
+  "My variable width font available to org-mode files and whatnot.")
+#+end_src
 
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist
-             '(font . "Inconsolata-15"))
+             ;'(font . "Inconsolata-16")
+             ;'(font . "FiraMono-16")
+             ;'(font . "Source Code Pro Medium 15")
+             '(font . "Source Code Pro Bold 15")
+             )
 #+end_src
 
 * Sane defaults
 
 Let's start with some sane defaults, shall we?
 
-Sources for this section include [[https://github.com/magnars/.emacs.d/blob/master/settings/sane-defaults.el][Magnars Sveen]] and [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua]].
+Sources for this section include [[https://github.com/magnars/.emacs.d/blob/master/settings/sane-defaults.el][Magnars Sveen]]
+and [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua]].
 
 #+begin_src emacs-lisp
 ;; These functions are useful. Activate them.
@@ -499,6 +543,7 @@ do just that to reduce the repetition.
   (interactive)
   (split-window-vertically)
   (other-window 1 nil))
+
 (defun hsplit-other-window ()
   "Splits the window horizontally and switches to that window."
   (interactive)
@@ -619,7 +664,6 @@ This package displays function signatures in the mode line.
   :ensure t
   :init (add-hook 'c-mode-hook #'c-turn-on-eldoc-mode))
 #+end_src
-
 
 ** Dash
 
@@ -869,14 +913,15 @@ Starting to use Racket now, mainly for programming paradigms class,
 though I'm looking forward to some "REPL-driven development" whenever
 I get the chance.
 
-#+begin_src emacs-lisp
-(use-package racket-mode
-  :ensure t
-  :config
-  (setq racket-smart-open-bracket-enable t))
+# #+begin_src emacs-lisp
+# (use-package racket-mode
+#   :ensure t
+#   :config
+#   (setq racket-smart-open-bracket-enable t))
+#
+# (use-package geiser
+#   :ensure t)
 
-(use-package geiser
-  :ensure t)
 ** Restclient
 
 See [[http://emacsrocks.com/e15.html][Emacs Rocks! Episode 15]] to learn how restclient can help out with
@@ -996,14 +1041,14 @@ It takes a few seconds to load and I don't need them immediately when
 Emacs starts up, so we can defer loading yasnippet until there's some
 idle time.
 
-#+begin_src emacs-lisp
-(use-package yasnippet
-  :ensure t
-  :diminish yas-minor-mode
-  :config
-  (setq yas-snippet-dirs (concat user-emacs-directory "snippets"))
-  (yas-global-mode 1))
-#+end_src
+# #+begin_src emacs-lisp
+# (use-package yasnippet
+#   :ensure t
+#   :diminish yas-minor-mode
+#   :config
+#   (setq yas-snippet-dirs (concat user-emacs-directory "snippets"))
+#   (yas-global-mode 1))
+# #+end_src
 
 ** Emmet
 
