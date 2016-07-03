@@ -1,9 +1,6 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: Burin Choomnuan
 
-I've been using Emacs extensively since the summer of 2013, and along
-the way I've become accustomed to many different tweaks for it.
-
 This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley, which is
 a fantastic way to manage package configurations.
 
@@ -14,27 +11,22 @@ because it's more on convenient on Dvorak. Though for the most part, I
 try to follow Emacs and assign bindings by mnemonics, would should
 make sense for any layout.
 
-* Installing Emacs
+** Installing Emacs
 
-On OS X, [[http://brew.sh/][homebrew]] is an easy way to install emacs.
-
-Here's what the parameter means.
-- ~--with-cocoa~ :: installs emacs with the OS X GUI version
-- ~--with-imagemagick~ :: installs emacs with imagemagick support for image processing
-- ~--with-gnutls~ :: installs emacs with GnuTLS to utilize encrypted SSL and TLS connections
+If you are using OSX then try
 
 #+begin_src sh
 brew install emacs --with-cocoa --with-imagemagick --with-gnutls
 #+end_src
 
-* Personal Information
+** Personal Information
 
 #+begin_src emacs-lisp
 (setq user-full-name "Burin Choomnuan"
       user-mail-address "agilecreativity@gmail.com")
 #+end_src
 
-* Customize settings
+** Customize settings
 
 Set up the customize file to its own separate file, instead of saving
 customize settings in [[file:init.el][init.el]].
@@ -44,32 +36,9 @@ customize settings in [[file:init.el][init.el]].
 (load custom-file)
 #+end_src
 
-* Theme
-** Cyberpunk theme
+** Themes
 
-The [[https://github.com/n3mo/cyberpunk-theme.el][cyberpunk theme]] is dark and colorful. However, I don't like the
-boxes around the mode line.
-
-#+begin_src emacs-lisp
-(use-package cyberpunk-theme
-  :ensure t
-  :init
-  (progn
-    (load-theme 'cyberpunk t)
-    (set-face-attribute `mode-line nil
-                        :box nil)
-    (set-face-attribute `mode-line-inactive nil
-                        :box nil)))
-#+end_src
-
-I tend to switch themes more often than normal. For example, switching
-to a lighter theme (such as the default) or to a different theme
-depending on the time of day or my mood. Normally, switching themes is
-a multi-step process with ~disable-theme~ and ~load-theme~. The
-~switch-theme~ function will do that in one swoop. I just choose which
-theme I want to go to.
-
-** Zenburn theme
+*** Zenburn theme
 
 #+begin_src emacs-lisp
 (use-package zenburn-theme
@@ -77,7 +46,7 @@ theme I want to go to.
   :ensure t)
 #+end_src
 
-** Solarized theme
+*** Solarized theme
 
 Here's some configuration for [[https://github.com/bbatsov/solarized-emacs/][bbatsov's solarized themes]].
 
@@ -88,13 +57,13 @@ Here's some configuration for [[https://github.com/bbatsov/solarized-emacs/][bba
   :ensure t)
 #+end_src
 
-** Monokai theme
+*** Monokai theme
 
 #+begin_src emacs-lisp
 (setq monokai-use-variable-pitch nil)
 #+end_src
 
-** Convenient theme functions
+*** Convenient theme functions
 
 #+begin_src emacs-lisp
 (defun switch-theme (theme)
@@ -118,9 +87,9 @@ Here's some configuration for [[https://github.com/bbatsov/solarized-emacs/][bba
 (bind-key "s-<f11>" 'disable-active-themes)
 #+end_src
 
-* Font Settings (Mostly from Howard Abrams)
+** Font Settings
 
-List of links that may be helpful to setup fonts and stuffs
+List of links that related to fonts and Emacs
 
  - [[http://mplus-fonts.sourceforge.jp/mplus-outline-fonts/download/index.html][M+]]
  - [[http://blogs.adobe.com/typblography/2012/09/source-code-pro.html][Source Code Pro]]
@@ -171,13 +140,10 @@ List of links that may be helpful to setup fonts and stuffs
              ;'(font . "Inconsolata-16")
              ;'(font . "FiraMono-16")
              ;'(font . "Source Code Pro Medium 15")
-             '(font . "Source Code Pro Bold 15")
-             )
+             '(font . "Source Code Pro Bold 15"))
 #+end_src
 
-* Sane defaults
-
-Let's start with some sane defaults, shall we?
+** Sensible defaults
 
 Sources for this section include [[https://github.com/magnars/.emacs.d/blob/master/settings/sane-defaults.el][Magnars Sveen]]
 and [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua]].
@@ -258,7 +224,13 @@ at point as the default value for occur.
 (bind-key "M-s o" 'occur-dwim)
 #+end_src
 
-* Mac customizations
+** Platform specific settings
+
+*** Linux
+
+Linux specific settings will be here (WIP)
+
+*** Mac customizations
 
 There are configurations to make when running Emacs on OS X (hence the
 "darwin" system-type check).
@@ -335,7 +307,7 @@ match the same one on OS X.
   (exec-path-from-shell-initialize))
 #+end_src
 
-* List buffers
+** List buffers
 
 ibuffer is the improved version of list-buffers.
 
@@ -356,7 +328,7 @@ source: http://ergoemacs.org/emacs/emacs_buffer_management.html
 
 source: [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars Sveen]]
 
-* Recentf
+** Recentf
 
 #+begin_src emacs-lisp
 (use-package recentf
@@ -376,7 +348,7 @@ source: [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars Sveen]]
     (bind-key "C-x C-r" 'ido-recentf-open)))
 #+end_src
 
-* Org mode
+** Org mode
 
 Truly the way to [[http://orgmode.org/][live life in plain text]]. I mainly use it to take
 notes and save executable source blocks. I'm also starting to make use
@@ -384,7 +356,7 @@ of its agenda, timestamping, and capturing features.
 
 It goes without saying that I also use it to manage my Emacs config.
 
-** Org activation bindings
+*** Org activation bindings
 
 Set up some global key bindings that integrate with Org Mode features.
 
@@ -428,7 +400,7 @@ speed keys in Org mode]].
 (setq org-image-actual-width 550)
 #+end_src
 
-** Org tags
+*** Org tags
 
 The default value is -77, which is weird for smaller width windows.
 I'd rather have the tags align horizontally with the header. 45 is a
@@ -438,7 +410,7 @@ good column number to do that.
 (setq org-tags-column 45)
 #+end_src
 
-** Org babel languages
+*** Org babel languages
 
 #+begin_src emacs-lisp
 (org-babel-do-load-languages
@@ -464,7 +436,7 @@ good column number to do that.
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 #+end_src
 
-** Org babel/source blocks
+*** Org babel/source blocks
 
 I like to have source blocks properly syntax highlighted and with the
 editing popup window staying within the same window so all the windows
@@ -485,7 +457,7 @@ consistent as it doesn't pad source blocks with leading spaces.
       org-src-tab-acts-natively t)
 #+end_src
 
-** Org exporting
+*** Org exporting
 
 *** Pandoc exporter
 
@@ -497,13 +469,13 @@ Pandoc converts between a huge number of different file formats.
   :ensure t)
 #+end_src
 
-* Tramp
+** Tramp
 
 #+begin_src emacs-lisp :tangle no
 (use-package tramp)
 #+end_src
 
-* Locate
+** Locate
 
 Using OS X Spotlight within Emacs by modifying the ~locate~ function.
 
@@ -515,14 +487,14 @@ search list as you type a query.
 (setq locate-command "mdfind")
 #+end_src
 
-* Shell
+** Shell
 
 #+begin_src emacs-lisp
 (bind-key "C-x m" 'shell)
 (bind-key "C-x M" 'ansi-term)
 #+end_src
 
-* Window
+** Window
 
 Convenient keybindings to resize windows.
 
@@ -571,7 +543,7 @@ and allows you.
   :bind ("s-M-t" . transpose-frame))
 #+end_src
 
-* Ido
+** Ido
 
 #+begin_src emacs-lisp
 (use-package ido
@@ -589,18 +561,18 @@ and allows you.
       (setq ido-vertical-define-keys 'C-n-and-C-p-only))))
 #+end_src
 
-* Whitespace mode
+** Whitespace mode
 
 #+begin_src emacs-lisp
 (use-package whitespace
   :bind ("s-<f10>" . whitespace-mode))
 #+end_src
 
-* ELPA packages
+** ELPA packages
 
 These are the packages that are not built into Emacs.
 
-** Ace Jump Mode
+*** Ace Jump Mode
 
 A quick way to jump around text in buffers.
 
@@ -614,7 +586,7 @@ A quick way to jump around text in buffers.
   :bind ("C-S-s" . ace-jump-mode))
 #+end_src
 
-** Ace Window
+*** Ace Window
 
 [[https://github.com/abo-abo/ace-window][ace-window]] is a package that uses the same idea from ace-jump-mode for
 buffer navigation, but applies it to windows. The default keys are
@@ -631,14 +603,14 @@ what I have them set to (with respect to Dvorak, of course).
 #+end_src
 #+end_src
 
-** Android mode
+*** Android mode
 
 #+begin_src emacs-lisp
 (use-package android-mode
   :ensure t)
 #+end_src
 
-** Ag The Silver Searcher
+*** Ag The Silver Searcher
 
 [[https://github.com/ggreer/the_silver_searcher][Ag]] can be installed with following command on OSX
 
@@ -651,10 +623,7 @@ brew install ag
   :ensure t)
 #+end_src
 
-** C-Eldoc
-   :PROPERTIES:
-   :GitHub:   https://github.com/mooz/c-eldoc
-   :END:
+*** C-Eldoc
 
 This package displays function signatures in the mode line.
 
@@ -665,7 +634,7 @@ This package displays function signatures in the mode line.
   :init (add-hook 'c-mode-hook #'c-turn-on-eldoc-mode))
 #+end_src
 
-** Dash
+*** Dash
 
 Integration with [[http://kapeli.com/dash][Dash, the API documentation browser on OS X]]. The
 binding ~s-D~ is the same as Cmd-Shift-D, the same binding that dash
@@ -675,11 +644,11 @@ tools I use).
 #+begin_src emacs-lisp
 (use-package dash-at-point
   :ensure t
-  :bind (("s-D"     . dash-at-point)
-         ("C-c e"   . dash-at-point-with-docset)))
+  :bind (("s-D"   . dash-at-point)
+         ("C-c e" . dash-at-point-with-docset)))
 #+end_src
 
-** Helm
+*** Helm
 
 #+begin_src emacs-lisp
 (use-package helm
@@ -703,7 +672,7 @@ tools I use).
          ("C-x C-f" . helm-find-files)))
 #+end_src
 
-** Magit
+*** Magit
 
 A great interface for git projects. It's much more pleasant to use
 than the git interface on the command line. Use an easy keybinding to
@@ -717,7 +686,7 @@ access magit.
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 #+end_src
 
-*** Fullscreen magit
+**** Fullscreen magit
 
 #+BEGIN_QUOTE
 The following code makes magit-status run alone in the frame, and then
@@ -741,7 +710,7 @@ No more juggling windows after commiting. It's magit bliss.
   (jump-to-register :magit-fullscreen))
 #+end_src
 
-** Edit With Emacs
+*** Edit With Emacs
 
 Editing input boxes from Chrome with Emacs. Pretty useful to keep all
 significant text-writing on the web within emacs. I typically use this
@@ -758,7 +727,7 @@ used.
   (setq edit-server-new-frame nil))
 #+end_src
 
-** Elfeed
+*** Elfeed
 
 #+begin_src emacs-lisp :tangle no
 (use-package elfeed
@@ -768,13 +737,13 @@ used.
                   "http://usesthis.com/feed/")))
 #+end_src
 
-** Emacs IPython Notebook
+*** Emacs IPython Notebook
 #+begin_src emacs-lisp
 (use-package ein
   :ensure t)
 #+end_src
 
-** Expand region
+*** Expand region
 
 #+begin_src emacs-lisp
 (use-package expand-region
@@ -782,7 +751,7 @@ used.
   :bind ("C-@" . er/expand-region))
 #+end_src
 
-** Floobits
+*** Floobits
 
 Using [[https://floobits.com/][Floobits]] for code collaboration.
 
@@ -791,7 +760,7 @@ Using [[https://floobits.com/][Floobits]] for code collaboration.
   :ensure t)
 #+end_src
 
-** Flycheck
+*** Flycheck
 
 Still need to set up hooks so that flycheck automatically runs in
 python mode, etc. js2-mode is already really good for the syntax
@@ -815,7 +784,7 @@ npm install -g jshint
 npm install -g csslint
 #+end_src
 
-** Gists
+*** Gists
 
 #+BEGIN_SRC emacs-lisp
 (use-package gist
@@ -823,7 +792,7 @@ npm install -g csslint
   :commands gist-list)
 #+END_SRC
 
-** Macrostep
+*** Macrostep
 
 Macrostep allows you to see what Elisp macros expand to. Learned about
 it from the [[https://www.youtube.com/watch?v%3D2TSKxxYEbII][package highlight talk for use-package]].
@@ -834,7 +803,7 @@ it from the [[https://www.youtube.com/watch?v%3D2TSKxxYEbII][package highlight t
   :bind ("H-`" . macrostep-expand))
 #+end_src
 
-** Markdown mode
+*** Markdown mode
 
 #+begin_src emacs-lisp
 (use-package markdown-mode
@@ -843,7 +812,7 @@ it from the [[https://www.youtube.com/watch?v%3D2TSKxxYEbII][package highlight t
          ("\\.md\\'"       . markdown-mode)))
 #+end_src
 
-** Multiple cursors
+*** Multiple cursors
 
 We'll also need to ~(require 'multiple-cusors)~ because of [[https://github.com/magnars/multiple-cursors.el/issues/105][an autoload issue]].
 
@@ -859,7 +828,7 @@ We'll also need to ~(require 'multiple-cusors)~ because of [[https://github.com/
          ("s-d"         . mc/mark-all-dwim)))
 #+end_src
 
-** Olivetti
+*** Olivetti
 
 #+begin_src emacs-lisp
 (use-package olivetti
@@ -867,7 +836,7 @@ We'll also need to ~(require 'multiple-cusors)~ because of [[https://github.com/
   :bind ("s-<f6>" . olivetti-mode))
 #+end_src
 
-** Perspective
+*** Perspective
 
 Workspaces in Emacs.
 
@@ -877,7 +846,7 @@ Workspaces in Emacs.
   :config (persp-mode))
 #+end_src
 
-** Projectile
+*** Projectile
 
 #+BEGIN_QUOTE
 Project navigation and management library for Emacs.
@@ -898,7 +867,7 @@ http://batsov.com/projectile/
       :ensure t)))
 #+end_src
 
-** Python
+*** Python
 
 Integrates with IPython.
 
@@ -907,22 +876,7 @@ Integrates with IPython.
   :ensure t)
 #+end_src
 
-** Racket
-
-Starting to use Racket now, mainly for programming paradigms class,
-though I'm looking forward to some "REPL-driven development" whenever
-I get the chance.
-
-# #+begin_src emacs-lisp
-# (use-package racket-mode
-#   :ensure t
-#   :config
-#   (setq racket-smart-open-bracket-enable t))
-#
-# (use-package geiser
-#   :ensure t)
-
-** Restclient
+*** Restclient
 
 See [[http://emacsrocks.com/e15.html][Emacs Rocks! Episode 15]] to learn how restclient can help out with
 testing APIs from within Emacs. The HTTP calls you make in the buffer
@@ -936,14 +890,14 @@ string to keep things portable.
   :mode ("\\.restclient\\'" . restclient-mode))
 #+end_src
 
-** Cider
+*** Cider
 
 #+begin_src emacs-lisp
 (use-package cider
   :ensure t)
 #+end_src
 
-** Smartparens mode
+*** Smartparens mode
 
 #+begin_src emacs-lisp
 (use-package smartparens
@@ -963,7 +917,8 @@ activate by default; they'll only apply for wrapping regions.
 (sp-local-pair 'org-mode "/" "/" :actions '(wrap))
 (sp-local-pair 'org-mode "*" "*" :actions '(wrap))
 #+end_src
-** Smartscan
+
+*** Smartscan
 
 #+BEGIN_QUOTE
 Quickly jumps between other symbols found at point in Emacs.
@@ -978,7 +933,7 @@ http://www.masteringemacs.org/article/smart-scan-jump-symbols-buffer
          ("s-p" . smartscan-symbol-go-backward)))
 #+end_src
 
-** Smex
+*** Smex
 
 Smex integrates ido with ~M-x~. I used to use this before moving on to
 [[*Helm][helm]].
@@ -990,7 +945,7 @@ Smex integrates ido with ~M-x~. I used to use this before moving on to
   :bind ("M-x" . smex))
 #+end_src
 
-** Skewer mode
+*** Skewer mode
 
 Live coding for HTML/CSS/JavaScript.
 
@@ -1001,7 +956,7 @@ Live coding for HTML/CSS/JavaScript.
   :config (skewer-setup))
 #+end_src
 
-** Smoothscrolling
+*** Smoothscrolling
 
 This makes it so ~C-n~-ing and ~C-p~-ing won't make the buffer jump
 around so much.
@@ -1011,7 +966,7 @@ around so much.
   :ensure t)
 #+end_src
 
-** Visual-regexp
+*** Visual-regexp
 
 #+begin_src emacs-lisp
 (use-package visual-regexp
@@ -1025,14 +980,14 @@ around so much.
          ("C-M-s" . vr/isearch-forward)))
 #+end_src
 
-** Webmode
+*** Webmode
 
 #+begin_src emacs-lisp :tangle no
 (use-package web-mode
   :ensure t)
 #+end_src
 
-** Yasnippet
+*** Yasnippet
 
 Yeah, snippets! I start with snippets from [[https://github.com/AndreaCrotti/yasnippet-snippets][Andrea Crotti's collection]]
 and have also modified them and added my own.
@@ -1050,7 +1005,7 @@ idle time.
 #   (yas-global-mode 1))
 # #+end_src
 
-** Emmet
+*** Emmet
 
 According to [[http://emmet.io/][their website]], "Emmet — the essential toolkit for web-developers."
 
@@ -1063,7 +1018,7 @@ According to [[http://emmet.io/][their website]], "Emmet — the essential toolk
   (add-hook 'css-mode-hook 'emmet-mode))
 #+end_src
 
-** Zoom-frm
+*** Zoom-frm
 
 =zoom-frm= is a nice package that allows you to resize the text of
 entire Emacs frames (this includes text in the buffer, mode line, and
@@ -1084,7 +1039,7 @@ Changing the =frame-zoom-font-difference= essentially enables a
   (setq frame-zoom-font-difference 10))
 #+end_src
 
-** Scratch
+*** Scratch
 
 Convenient package to create =*scratch*= buffers that are based on the
 current buffer's major mode. This is more convienent than manually
@@ -1096,9 +1051,9 @@ creating a buffer to do some scratch work or reusing the initial
   :ensure t)
 #+end_src
 
-** Ruby Development
+*** Ruby Development
 
-*** bundler
+**** bundler
 
 See the [[https://github.com/tobiassvn/bundler.el][official document]] for usage.
 
@@ -1107,7 +1062,7 @@ See the [[https://github.com/tobiassvn/bundler.el][official document]] for usage
   :ensure t)
 #+end_src
 
-*** feature-mode
+**** feature-mode
 
 According to [[https://github.com/michaelklishin/cucumber.el][official document],
 to get =goto-step-definition= to work, we must install
@@ -1120,7 +1075,7 @@ Tips: better to use this with the =rbenv= package below e.g. =rbenv-use= command
   :ensure t)
 #+end_src
 
-*** goto-gem
+**** goto-gem
 
 Go directory to the source of a ruby gems
 
@@ -1129,7 +1084,7 @@ Go directory to the source of a ruby gems
   :ensure t)
 #+end_src
 
-*** inf-ruby
+**** inf-ruby
 
 Needed to be installed as required by =feature-mode= package and many others
 
@@ -1138,7 +1093,7 @@ Needed to be installed as required by =feature-mode= package and many others
   :ensure t)
 #+end_src
 
-*** rbenv
+**** rbenv
 
 The ruby package manager see [[https://github.com/rbenv/rbenv][official site]]
 
@@ -1147,7 +1102,7 @@ The ruby package manager see [[https://github.com/rbenv/rbenv][official site]]
   :ensure t)
 #+end_src
 
-*** rspec-mode
+**** rspec-mode
 
 BDD/TDD testing in ruby
 
@@ -1156,63 +1111,63 @@ BDD/TDD testing in ruby
   :ensure t)
 #+end_src
 
-*** ruby-additional
+**** ruby-additional
 
 #+begin_src emacs-lisp
 (use-package ruby-additional
   :ensure t)
 #+end_src
 
-*** ruby-block
+**** ruby-block
 
 #+begin_src emacs-lisp
 (use-package ruby-block
   :ensure t)
 #+end_src
 
-*** ruby-hash-syntax
+**** ruby-hash-syntax
 
 #+begin_src emacs-lisp
 (use-package ruby-hash-syntax
   :ensure t)
 #+end_src
 
-*** ruby-refactor
+**** ruby-refactor
 
 #+begin_src emacs-lisp
 (use-package ruby-refactor
   :ensure t)
 #+end_src
 
-*** ruby-tools
+**** ruby-tools
 
 #+begin_src emacs-lisp
 (use-package ruby-tools
   :ensure t)
 #+end_src
 
-*** projectile-rails
+**** projectile-rails
 
 #+begin_src emacs-lisp
 (use-package projectile-rails
   :ensure t)
 #+end_src
 
-*** yari
+**** yari
 
 #+begin_src emacs-lisp
 (use-package yari
   :ensure t)
 #+end_src
 
-*** yaml-mode
+**** yaml-mode
 
 #+begin_src emacs-lisp
 (use-package yaml-mode
   :ensure t)
 #+end_src
 
-*** coffee-mode
+**** coffee-mode
 
 The [[git@github.com:defunkt/coffee-mode.git][coffee-mode]] for CoffeeScript support
 
@@ -1221,9 +1176,9 @@ The [[git@github.com:defunkt/coffee-mode.git][coffee-mode]] for CoffeeScript sup
   :ensure t)
 #+end_src
 
-*** Git related packages
+** Git related packages
 
-**** git-timemachine
+*** git-timemachine
 
 Step back in time in Git's land, see the official website for usage
 
@@ -1232,7 +1187,7 @@ Step back in time in Git's land, see the official website for usage
   :ensure t)
 #+end_src
 
-**** github-browse-file
+*** github-browse-file
 
 Open Github's file from Emacs [[official site][https://github.com/osener/github-browse-file]]
 
@@ -1241,7 +1196,7 @@ Open Github's file from Emacs [[official site][https://github.com/osener/github-
   :ensure t)
 #+end_src
 
-* Computer-specific settings
+** Computer-specific settings
 
 Load some computer-specific settings, such as the name and and email
 address. The way the settings are loaded is based off of [[https://github.com/magnars/.emacs.d][Magnar
@@ -1276,37 +1231,9 @@ loaded earlier in the config depend on it already. That means the
   (mapc 'load (directory-files mai/user-settings-dir nil "^[^#].*el$")))
 #+end_src
 
-* Languages
-** C/Java
+** Languages
 
-I don't like the default way that Emacs handles indentation. For instance,
-
-#+begin_src C
-int main(int argc, char *argv[])
-{
-  /* What's with the brace alignment? */
-  if (check)
-    {
-    }
-  return 0;
-}
-#+end_src
-
-#+begin_src java
-switch (number)
-    {
-    case 1:
-        doStuff();
-        break;
-    case 2:
-        doStuff();
-        break;
-    default:
-        break;
-    }
-#+end_src
-
-Luckily, I can modify the way Emacs formats code with this configuration.
+*** C/Java
 
 #+begin_src emacs-lisp
 (defun my-c-mode-hook ()
@@ -1318,8 +1245,9 @@ Luckily, I can modify the way Emacs formats code with this configuration.
 (add-hook 'java-mode-hook 'my-c-mode-hook)
 #+end_src
 
-* Misc
-** Display Time
+** Misc
+
+*** Display Time
 
 When displaying the time with =display-time-mode=, I don't care about
 the load average.
@@ -1328,7 +1256,7 @@ the load average.
 (setq display-time-default-load-average nil)
 #+end_src
 
-** Display Battery Mode
+*** Display Battery Mode
 
 See the documentation for =battery-mode-line-format= for the format
 characters.
@@ -1337,7 +1265,7 @@ characters.
 (setq battery-mode-line-format "[%b%p%% %t]")
 #+end_src
 
-** Docview keybindings
+*** Docview keybindings
 
 #+begin_src emacs-lisp
 (use-package doc-view
@@ -1346,13 +1274,13 @@ characters.
   (define-key doc-view-mode-map (kbd "<left>") 'doc-view-previous-page))
 #+end_src
 
-** OS X scrolling
+*** OS X scrolling
 
 #+begin_src emacs-lisp
 (setq mouse-wheel-scroll-amount (quote (0.01)))
 #+end_src
 
-** Visible mode
+*** Visible mode
 
 I found out about this mode my looking through simple.el. I use it to
 see raw org-mode files without going to a different mode like
@@ -1363,84 +1291,6 @@ while still being in org mode.
 #+begin_src emacs-lisp
 (use-package visible-mode
   :bind ("H-v" . visible-mode))
-#+end_src
-
-** Quickly find file in a project
-
-TODO: for some reason the search are very slow to return, find out why?
-
-#+begin_src emacs-lisp
-(use-package find-file-in-project
-  :ensure t
-  :config (progn (require 's)))
-#+end_src
-
-Note: this is the basic settings
-
-#+begin_src emacs-lisp
-;; No need to be stingy
-(setq ffip-limit 4096)
-
-;; Use full project path for ffip
-
-(defun ffip-project-files ()
-  "Return an alist of all filenames in the project and their path."
-  (let ((file-alist nil))
-    (mapcar (lambda (file)
-              (let ((file-cons (cons (s-chop-prefix (file-truename (ffip-project-root)) (expand-file-name file))
-                                     (expand-file-name file))))
-                (add-to-list 'file-alist file-cons)
-                file-cons))
-            (split-string (shell-command-to-string
-                           (format "find %s -type f \\( %s \\) %s | head -n %s"
-                                   (or ffip-project-root
-                                       (ffip-project-root)
-                                       (error "No project root found"))
-                                   (ffip-join-patterns)
-                                   ffip-find-options
-                                   ffip-limit))))))
-
-;; Helper methods to create local settings
-
-(defun ffip--create-exclude-find-options (names)
-  (mapconcat
-    (lambda (name)
-      (concat "-not -regex \".*" name ".*\"")) names " "))
-
-(defun ffip-local-excludes (&rest names)
-  "Given a set of names, will exclude results with those names in the path."
-  (set (make-local-variable 'ffip-find-options)
-       (ffip--create-exclude-find-options names)))
-
-(defun ffip-local-patterns (&rest patterns)
-  "An exhaustive list of file name patterns to look for."
-  (set (make-local-variable 'ffip-patterns) patterns))
-
-;; Function to create new functions that look for a specific pattern
-(defun ffip-create-pattern-file-finder (&rest patterns)
-  (lexical-let ((patterns patterns))
-    (lambda ()
-      (interactive)
-      (let ((ffip-patterns patterns))
-        (find-file-in-project)))))
-
-;; Default excludes - override with ffip-local-excludes
-(setq-default ffip-find-options
-  (ffip--create-exclude-find-options
-    '("/node_modules"
-      "/bower_components"
-      "/target"
-      "/out"
-      "/overlays"
-      "/build"
-      "/dist"
-      "/vendor"
-      ".cask"
-      "/generated"
-      "/coverage"
-      "/.repl"
-      "/tmp"
-      "/.tmp")))
 #+end_src
 
 *** Undo tree mode - visualize your undos and branches
@@ -1468,7 +1318,7 @@ It's hard to remember keyboard shortcuts. The =guide-key= package pops up help a
     (guide-key-mode 1)))
 #+end_src
 
-** My extra package for developer
+** Extra packages for developer
 
 *** Clojure
 
@@ -1504,7 +1354,6 @@ Make sure paredit is on by default for some mode
 #+begin_src emacs-lisp
 (use-package cider
   :ensure t)
-
 (use-package ac-cider
   :ensure t)
 #+end_src
@@ -1520,4 +1369,76 @@ Make sure that ac-cider is setup according to the installation guide
   '(progn
      (add-to-list 'ac-modes 'cider-mode)
      (add-to-list 'ac-modes 'cider-repl-mode)))
+#+end_src
+
+*** File file in project
+
+#+begin_src emacs-lisp
+(use-package find-file-in-project
+  :ensure t
+  :config (progn (require 's)))
+
+;; No need to be stingy
+(setq ffip-limit 4096)
+
+;; Use full project path for ffip
+(defun ffip-project-files ()
+  "Return an alist of all filenames in the project and their path."
+  (let ((file-alist nil))
+    (mapcar (lambda (file)
+              (let ((file-cons (cons (s-chop-prefix (file-truename (ffip-project-root)) (expand-file-name file))
+                                     (expand-file-name file))))
+                (add-to-list 'file-alist file-cons)
+                file-cons))
+            (split-string (shell-command-to-string
+                           (format "find %s -type f \\( %s \\) %s | head -n %s"
+                                   (or ffip-project-root
+                                       (ffip-project-root)
+                                       (error "No project root found"))
+                                   (ffip-join-patterns)
+                                   ffip-find-options
+                                   ffip-limit))))))
+
+;; Helper methods to create local settings
+(defun ffip--create-exclude-find-options (names)
+  (mapconcat (lambda (name)
+               (concat "-not -regex \".*" name ".*\"")) names " "))
+
+(defun ffip-local-excludes (&rest names)
+  "Given a set of names, will exclude results with those names in the path."
+  (set (make-local-variable 'ffip-find-options)
+       (ffip--create-exclude-find-options names)))
+
+(defun ffip-local-patterns (&rest patterns)
+  "An exhaustive list of file name patterns to look for."
+  (set (make-local-variable 'ffip-patterns) patterns))
+
+;; Function to create new functions that look for a specific pattern
+(defun ffip-create-pattern-file-finder (&rest patterns)
+  (lexical-let ((patterns patterns))
+    (lambda ()
+      (interactive)
+      (let ((ffip-patterns patterns))
+        (find-file-in-project)))))
+
+;; Default excludes - override with ffip-local-excludes
+(setq-default ffip-find-options
+              (ffip--create-exclude-find-options
+               '("/node_modules"
+                 "/bower_components"
+                 "/target"
+                 "/out"
+                 "/overlays"
+                 "/build"
+                 "/dist"
+                 "/vendor"
+                 ".cask"
+                 "/generated"
+                 "/resources/public/js/compiled"
+                 "/.repl"
+                 "/.tmp")))
+
+;; Experimental setting
+(global-unset-key (kbd "C-x C-o")) ;; normally binds to 'delete-blank-line'
+(global-set-key (kbd "C-x C-o") 'find-file-in-project)
 #+end_src
