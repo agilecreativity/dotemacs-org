@@ -193,6 +193,10 @@ and [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua]].
 
 (column-number-mode t)
 
+(use-package diminish
+  :init
+  :ensure t)
+
 (global-visual-line-mode)
 (diminish 'visual-line-mode)
 
@@ -422,7 +426,7 @@ good column number to do that.
    (java . t)
    (ruby . t)
    (scheme . t)
-   (sh . t)
+   ;;(sh . t)
    (sqlite . t)
    (js . t)))
 
